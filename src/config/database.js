@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS livros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT NOT NULL, 
     preco REAL NOT NULL,
-    descricao TEXT DEFAULT ('') NOT NULL
+    descricao TEXT DEFAULT ('') NOT NULL, 
+    url_capa TEXT
 )
 `;
 
@@ -42,13 +43,11 @@ INSERT INTO livros (
 
 bd.serialize(() => {
     bd.run("PRAGMA foreign_keys=ON");
-    bd.run(USUARIOS_SCHEMA);
     bd.run(LIVROS_SCHEMA);
     bd.run(INSERIR_LIVRO_1);
     bd.run(INSERIR_LIVRO_2);
+    });
 
-   
-});
 
 process.on('SIGINT', () =>
     bd.close(() => {
